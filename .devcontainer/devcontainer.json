@@ -1,0 +1,29 @@
+{
+  "name": "bljohnsondev-site",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": ["--add-host=host.docker.internal:host-gateway"],
+  "remoteEnv": {
+    "PATH": "/workspaces/${localWorkspaceFolderBasename}/node_modules/.bin:${containerEnv:PATH}",
+    "TERM": "xterm-256color"
+  },
+  "mounts": [
+    "type=bind,source=${localEnv:HOME}/.config/nvim,target=/home/node/.config/nvim",
+    "type=bind,source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig",
+    "type=bind,source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,readonly"
+  ],
+  "postCreateCommand": "bash .devcontainer/postcreate.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "svelte.svelte-vscode",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  },
+  "forwardPorts": [5173],
+  "appPort": 5173
+}

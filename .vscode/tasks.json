@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev-host",
+			"problemMatcher": [],
+			"label": "npm: dev-host",
+			"detail": "vite dev-host"
+		},
+		{
+			"type": "npm",
+			"script": "lint",
+			"problemMatcher": [],
+			"label": "npm: lint",
+			"detail": "vite lint"
+		}
+	]
+}

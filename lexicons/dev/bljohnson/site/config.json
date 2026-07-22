@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "dev.bljohnson.site.config",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Supplemental site display configuration for bljohnson.dev, not covered by the id.sifa.profile lexicon.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "required": ["createdAt"],
+        "properties": {
+          "greeting": { "type": "string", "maxLength": 200 },
+          "tagline": { "type": "string", "maxLength": 500 },
+          "siteName": { "type": "string", "maxLength": 200 },
+          "metaDescription": { "type": "string", "maxLength": 500 },
+          "employmentViewTotal": { "type": "integer", "minimum": 0 },
+          "pageTitles": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#pageTitle" },
+            "maxLength": 50
+          },
+          "skillCategories": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#skillCategory" },
+            "maxLength": 50
+          },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "pageTitle": {
+      "type": "object",
+      "required": ["path", "title"],
+      "properties": {
+        "path": { "type": "string", "maxLength": 500 },
+        "title": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "skillCategory": {
+      "type": "object",
+      "required": ["name", "skills"],
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 200 },
+          "maxLength": 100
+        }
+      }
+    }
+  }
+}

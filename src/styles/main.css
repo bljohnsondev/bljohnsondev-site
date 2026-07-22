@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+  themes:
+    corporate --default,
+    business;
+  logs: false;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import './theme.css';
+
+@layer base {
+  html,
+  body {
+    min-height: 100vh;
+    background-color: var(--color-site-bg);
+  }
+
+  body {
+    @apply pb-10 font-display text-site-fg;
+  }
+
+  h2 {
+    @apply mb-3 text-lg font-semibold text-h2-fg;
+  }
+}
+
+@layer components {
+  h2.section {
+    @apply mb-2 text-section-title-fg;
+  }
+
+  .invalid {
+    @apply mt-1 text-sm text-form-error-fg;
+  }
+}
+
+/* some daisy ui styling overrides */
+@layer utilities {
+  .label {
+    @apply mb-1 block text-sm font-medium text-form-label-fg;
+  }
+
+  .label.required::after {
+    content: ' *';
+    color: var(--color-form-label-required);
+  }
+
+  .input:focus,
+  .input:focus-visible,
+  .textarea:focus,
+  .textarea:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 0px;
+    border: inherit;
+  }
+
+  .divider {
+    --divider-color: var(--color-content-divider);
+  }
+}

@@ -1,0 +1,105 @@
+@theme {
+  --font-display: 'Montserrat Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-welcome: 'Caveat Variable';
+
+  --color-site-bg: var(--color-neutral-100);
+  --color-site-fg: var(--color-neutral-800);
+  --color-site-muted-fg: var(--color-neutral-400);
+  --color-content-bg: var(--color-neutral-50);
+  --color-content-border: var(--color-neutral-300);
+  --color-content-divider: var(--color-neutral-200);
+
+  --color-header-btn-hover-bg: var(--color-neutral-200);
+  --color-header-btn-current-bg: var(--color-blue-200);
+  --color-header-theme-toggle: var(--color-neutral-400);
+  --color-header-theme-toggle-hover: var(--color-neutral-500);
+
+  --color-greeting-fg: var(--color-green-700);
+  --color-tagline-fg: var(--color-neutral-500);
+
+  --color-h2-fg: var(--color-neutral-600);
+  --color-section-title-fg: var(--color-blue-800);
+
+  --color-employment-date: var(--color-neutral-400);
+  --color-employment-title: var(--color-neutral-100);
+  --color-employment-bullet: var(--color-red-800);
+  --color-employment-list: var(--color-neutral-600);
+  --color-employment-show-bg: var(--color-neutral-300);
+  --color-employment-show-fg: var(--color-neutral-600);
+  --color-employment-show-border: var(--color-neutral-400);
+  --color-employment-show-hover-bg: color-mix(in oklch, var(--color-neutral-400) 60%, transparent);
+  --color-employment-show-hover-fg: var(--color-neutral-800);
+
+  --color-skill-bg: var(--color-slate-200);
+  --color-skill-border: var(--color-slate-300);
+
+  --color-form-label-fg: var(--color-neutral-400);
+  --color-form-label-required: var(--color-red-500);
+  --color-form-input-border: var(--color-blue-500);
+  --color-form-error-fg: var(--color-red-500);
+
+  --color-toast-info-bg: var(--color-blue-900);
+  --color-toast-info-fg: var(--color-blue-200);
+  --color-toast-info-border: var(--color-blue-500);
+  --color-toast-success-bg: var(--color-green-800);
+  --color-toast-success-fg: var(--color-green-200);
+  --color-toast-success-border: var(--color-green-500);
+  --color-toast-warning-bg: var(--color-yellow-700);
+  --color-toast-warning-fg: var(--color-yellow-200);
+  --color-toast-warning-border: var(--color-yellow-400);
+  --color-toast-error-bg: var(--color-red-900);
+  --color-toast-error-fg: var(--color-red-200);
+  --color-toast-error-border: var(--color-red-500);
+}
+
+.dark {
+  --color-site-bg: #101017;
+  --color-site-fg: var(--color-neutral-200);
+  --color-site-muted-fg: var(--color-neutral-500);
+  --color-content-bg: #171721;
+  --color-content-border: #202031;
+  --color-content-divider: var(--color-neutral-800);
+
+  --color-header-btn-hover-bg: #1d1d24;
+  --color-header-btn-current-bg: var(--color-blue-950);
+  --color-header-theme-toggle: var(--color-neutral-400);
+  --color-header-theme-toggle-hover: var(--color-neutral-300);
+
+  --color-greeting-fg: var(--color-yellow-500);
+  --color-tagline-fg: var(--color-neutral-500);
+
+  --color-h2-fg: var(--color-neutral-300);
+  --color-section-title-fg: var(--color-blue-300);
+
+  --color-employment-date: var(--color-neutral-500);
+  --color-employment-title: var(--color-neutral-100);
+  --color-employment-bullet: var(--color-red-900);
+  --color-employment-list: var(--color-neutral-400);
+  --color-employment-show-bg: color-mix(in oklch, var(--color-neutral-700) 20%, transparent);
+  --color-employment-show-fg: var(--color-neutral-400);
+  --color-employment-show-border: var(--color-neutral-800);
+  --color-employment-show-hover-bg: color-mix(in oklch, var(--color-neutral-700) 30%, transparent);
+  --color-employment-show-hover-fg: var(--color-neutral-200);
+
+  --color-skill-bg: var(--color-neutral-800);
+  --color-skill-fg: var(--color-red-500);
+  --color-skill-border: var(--color-neutral-700);
+
+  --color-form-label-fg: var(--color-neutral-400);
+  --color-form-label-required: var(--color-red-500);
+  --color-form-input-border: var(--color-blue-500);
+  --color-form-error-fg: var(--color-red-500);
+
+  --color-toast-info-bg: var(--color-blue-900);
+  --color-toast-info-fg: var(--color-blue-200);
+  --color-toast-info-border: var(--color-blue-500);
+  --color-toast-success-bg: var(--color-green-800);
+  --color-toast-success-fg: var(--color-green-200);
+  --color-toast-success-border: var(--color-green-500);
+  --color-toast-warning-bg: var(--color-yellow-700);
+  --color-toast-warning-fg: var(--color-yellow-200);
+  --color-toast-warning-border: var(--color-yellow-400);
+  --color-toast-error-bg: var(--color-red-900);
+  --color-toast-error-fg: var(--color-red-200);
+  --color-toast-error-border: var(--color-red-500);
+}
