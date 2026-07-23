@@ -67,14 +67,17 @@
           "
         />
       {/if}
-      <span class="font-semibold tracking-tight">{profile.displayName}</span>
+      <h1 class="font-semibold tracking-tight">{profile.displayName}</h1>
     </a>
     <div class="flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:ml-auto">
-      <div class="flex basis-full justify-center gap-1 sm:basis-auto sm:gap-2">
+      <nav aria-label="Primary" class="flex basis-full justify-center gap-1 sm:basis-auto sm:gap-2">
         <HeaderLink href="/" current={page.url.pathname === '/'}>Home</HeaderLink>
         <HeaderLink href="/contact" current={page.url.pathname === '/contact'}>Contact</HeaderLink>
-      </div>
-      <div class="flex basis-full items-center justify-center gap-1 sm:basis-auto sm:gap-2">
+      </nav>
+      <nav
+        aria-label="External profiles"
+        class="flex basis-full items-center justify-center gap-1 sm:basis-auto sm:gap-2"
+      >
         {#if githubUrl}
           <HeaderLink href={githubUrl} external={true}>GitHub</HeaderLink>
         {/if}
@@ -84,18 +87,18 @@
         {#if profile.handle}
           <HeaderLink href={`https://sifa.id/p/${profile.handle}`} external={true}>Sifa ID</HeaderLink>
         {/if}
-        <button
-          onclick={toggleTheme}
-          aria-label="Toggle Theme"
-          class="cursor-pointer border-0 text-header-theme-toggle transition-colors duration-150 hover:text-header-theme-toggle-hover"
-        >
-          {#if store.isDark}
-            <Sun size={24} strokeWidth={2} />
-          {:else}
-            <Moon size={24} strokeWidth={2} />
-          {/if}
-        </button>
-      </div>
+      </nav>
+      <button
+        onclick={toggleTheme}
+        aria-label="Toggle Theme"
+        class="cursor-pointer border-0 text-header-theme-toggle transition-colors duration-150 hover:text-header-theme-toggle-hover"
+      >
+        {#if store.isDark}
+          <Sun size={24} strokeWidth={2} />
+        {:else}
+          <Moon size={24} strokeWidth={2} />
+        {/if}
+      </button>
     </div>
   </header>
   <section class="rounded-md border border-content-border bg-content-bg p-5">

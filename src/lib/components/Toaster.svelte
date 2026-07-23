@@ -11,7 +11,7 @@
   };
 </script>
 
-<div class="toast toast-center toast-top z-50">
+<div class="toast toast-center toast-top z-50" role="status" aria-live="polite">
   {#each store.toasts as toast (toast.id)}
     <div class="alert {alertClass[toast.type]}">
       <span>{toast.message}</span>
