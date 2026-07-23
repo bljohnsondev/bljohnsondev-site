@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ProfilePositionRecordSchema } from '@singi-labs/sifa-sdk/schemas';
+import { ProfilePositionRecordSchema, ProfileSkillRecordSchema } from '@singi-labs/sifa-sdk/schemas';
 
 export {
   BlobRefSchema,
@@ -11,8 +11,6 @@ export {
   type ProfileExternalAccountRecord as ExternalAccount,
   ProfileSelfRecordSchema as ProfileSelfSchema,
   type ProfileSelfRecord as ProfileSelf,
-  ProfileSkillRecordSchema as SkillSchema,
-  type ProfileSkillRecord as Skill,
 } from '@singi-labs/sifa-sdk/schemas';
 
 // The sifa-sdk generated schema requires `skills[].cid`, but the lexicon lists it as optional
@@ -25,6 +23,14 @@ export const PositionSchema = ProfilePositionRecordSchema.extend({
 });
 
 export type Position = z.infer<typeof PositionSchema>;
+
+// added a subCategory that is not in the official lexicon so I can group the skills in a way
+// that works better for me
+export const SkillSchema = ProfileSkillRecordSchema.extend({
+  subCategory: z.string().max(200).optional(),
+});
+
+export type Skill = z.infer<typeof SkillSchema>;
 
 const BskyBlobRefSchema = z.object({
   $type: z.literal('blob'),
