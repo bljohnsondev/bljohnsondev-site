@@ -7,7 +7,7 @@ const PageTitleSchema = z.object({
 
 const SkillCategorySchema = z.object({
   name: z.string().max(200),
-  skills: z.array(z.string().max(200)).max(100),
+  label: z.string().max(200),
 });
 
 export const SiteConfigSchema = z.object({
