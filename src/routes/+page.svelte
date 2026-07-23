@@ -50,8 +50,8 @@
     </div>
     <div class="flex flex-col gap-1 md:flex-row md:gap-10">
       <div>
-        <h1 class="text-base font-semibold">{job.company}</h1>
-        <h2 class="mb-2 text-base font-normal">{job.title}</h2>
+        <h3 class="text-base font-semibold">{job.company}</h3>
+        <h4 class="mb-2 text-base font-normal">{job.title}</h4>
         <ul class="list-outside list-disc space-y-1 pl-4 text-sm text-employment-list">
           {#each getDetails(job.description) as detail, i (`${i}-${detail}`)}
             <li>{detail}</li>
@@ -82,6 +82,7 @@
           hover:bg-employment-show-hover-bg
           hover:text-employment-show-hover-fg
         "
+    aria-expanded={showAll}
     onclick={() => (showAll = !showAll)}
   >
     {showAll ? 'Show less' : 'Show more'}

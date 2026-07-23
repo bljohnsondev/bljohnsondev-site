@@ -33,32 +33,39 @@
   Due to the increasing amount of spam I've been receiving, I've added an annoying CAPTCHA.
 </p>
 
-<form method="POST" use:enhance class="w-full space-y-4 md:w-1/2">
+<form method="POST" use:enhance novalidate class="w-full space-y-4 md:w-1/2">
   <div>
     <label class="label" for="name">Name</label>
     <input
-      type="text"
       id="name"
+      type="text"
       name="name"
+      autocomplete="name"
       class="input w-full"
       placeholder="Name"
       maxlength={64}
+      aria-invalid={!!$errors.name}
+      aria-describedby={$errors.name ? 'name-error' : undefined}
       bind:value={$form.name}
     />
-    {#if $errors.name}<div class="invalid">{$errors.name}</div>{/if}
+    {#if $errors.name}<div id="name-error" class="invalid">{$errors.name}</div>{/if}
   </div>
   <div>
     <label class="required label" for="email">Email</label>
     <input
-      type="text"
       id="email"
+      type="email"
       name="email"
+      autocomplete="email"
       class="input w-full"
       placeholder="Email"
       maxlength={254}
+      aria-required="true"
+      aria-invalid={!!$errors.email}
+      aria-describedby={$errors.email ? 'email-error' : undefined}
       bind:value={$form.email}
     />
-    {#if $errors.email}<div class="invalid">{$errors.email[0]}</div>{/if}
+    {#if $errors.email}<div id="email-error" class="invalid">{$errors.email[0]}</div>{/if}
   </div>
   <div>
     <label class="required label" for="message">Message</label>
@@ -68,9 +75,12 @@
       class="textarea w-full"
       placeholder="Message"
       maxlength={1000}
+      aria-required="true"
+      aria-invalid={!!$errors.message}
+      aria-describedby={$errors.message ? 'message-error' : undefined}
       bind:value={$form.message}
     ></textarea>
-    {#if $errors.message}<div class="invalid">{$errors.message}</div>{/if}
+    {#if $errors.message}<div id="message-error" class="invalid">{$errors.message}</div>{/if}
   </div>
   <div>
     <Turnstile siteKey={env.PUBLIC_CF_TURNSTILE_SITE_KEY} bind:reset theme={store.isDark ? 'dark' : 'light'} />

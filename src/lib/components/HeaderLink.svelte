@@ -37,6 +37,6 @@
 >
   {@render children()}
   {#if external}
-    <SquareArrowOutUpRight size={14} />
+    <SquareArrowOutUpRight size={14} aria-hidden="true" />
   {/if}
 </a>
