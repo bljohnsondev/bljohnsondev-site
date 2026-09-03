@@ -3,7 +3,7 @@ import ky from 'ky';
 
 import { getDb } from '$lib/server/db';
 import { contactMessages } from '$lib/server/db/schema';
-import type { ContactFormData } from '$lib/schemas/contact-schema';
+import type { ContactFormData } from '$lib/schemas/contact';
 
 export const saveAndNotify = async (data: ContactFormData, ipAddress: string | null) => {
   await getDb()

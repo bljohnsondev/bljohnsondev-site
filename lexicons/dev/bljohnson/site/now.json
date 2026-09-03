@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "dev.bljohnson.site.now",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Current 'now' status for bljohnson.dev - home sensor readings, office state, and what I'm watching. Ingested periodically from Home Assistant and a self-hosted TV tracker via the site's status ingest endpoint.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "required": ["updatedAt"],
+        "properties": {
+          "updatedAt": { "type": "string", "format": "datetime" },
+          "sensors": {
+            "type": "unknown",
+            "description": "Map of sensor id -> #sensorReading. Lexicon has no map primitive; the shape is enforced in-app with Zod (src/lib/schemas/status-ingest.ts)."
+          },
+          "office": { "type": "ref", "ref": "#office" },
+          "nowWatching": { "type": "ref", "ref": "#nowWatching" }
+        }
+      }
+    },
+    "sensorReading": {
+      "type": "object",
+      "required": ["label", "tempF", "updatedAt"],
+      "properties": {
+        "label": { "type": "string" },
+        "tempF": {
+          "type": "string",
+          "description": "Fahrenheit, one decimal place (e.g. \"84.6\"). Stored as a string because the atproto data model forbids floats."
+        },
+        "humidity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Optional - omitted for sensors where only temperature matters (e.g. fridge/freezer)."
+        },
+        "updatedAt": { "type": "string", "format": "datetime" }
+      }
+    },
+    "office": {
+      "type": "object",
+      "required": ["lightsOn", "updatedAt"],
+      "properties": {
+        "lightsOn": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "datetime" }
+      }
+    },
+    "nowWatching": {
+      "type": "object",
+      "required": ["show", "season", "episode", "watchedAt"],
+      "properties": {
+        "show": { "type": "string" },
+        "season": { "type": "integer", "minimum": 1 },
+        "episode": { "type": "integer", "minimum": 1 },
+        "episodeTitle": { "type": "string" },
+        "watchedAt": { "type": "string", "format": "datetime" }
+      }
+    }
+  }
+}

@@ -33,6 +33,14 @@
   --color-skill-bg: var(--color-slate-200);
   --color-skill-border: var(--color-slate-300);
 
+  --color-now-sensor-border: var(--color-neutral-200);
+  --color-now-sensor-bg: color-mix(in oklch, var(--color-content-bg) 94%, black 6%);
+  --color-now-sensor-on: var(--color-amber-500);
+  --color-now-sensor-off: var(--color-neutral-400);
+  --color-now-temp-cold: var(--color-sky-500);
+  --color-now-temp-ok: var(--color-emerald-500);
+  --color-now-temp-hot: var(--color-red-500);
+
   --color-form-label-fg: var(--color-neutral-400);
   --color-form-label-required: var(--color-red-500);
   --color-form-input-border: var(--color-blue-500);
@@ -84,6 +92,14 @@
   --color-skill-bg: var(--color-neutral-800);
   --color-skill-fg: var(--color-red-500);
   --color-skill-border: var(--color-neutral-700);
+
+  --color-now-sensor-border: var(--color-neutral-800);
+  --color-now-sensor-bg: color-mix(in oklch, var(--color-content-bg) 92%, white 4%);
+  --color-now-sensor-on: var(--color-amber-400);
+  --color-now-sensor-off: var(--color-neutral-500);
+  --color-now-temp-cold: var(--color-sky-400);
+  --color-now-temp-ok: var(--color-emerald-400);
+  --color-now-temp-hot: var(--color-red-400);
 
   --color-form-label-fg: var(--color-neutral-400);
   --color-form-label-required: var(--color-red-500);

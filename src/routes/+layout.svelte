@@ -20,6 +20,7 @@
   let profile = $derived(data.profile);
   let site = $derived(data.site);
   let externalAccounts = $derived(data.externalAccounts);
+  let hasNow = $derived(data.hasNow);
   let githubUrl = $derived(externalAccounts.find(account => account.platform === 'github')?.url);
   let linkedinUrl = $derived(externalAccounts.find(account => account.platform === 'linkedin')?.url);
   let windowTitle = $derived(site?.pageTitles?.find(entry => entry.path === page.url.pathname)?.title);
@@ -72,6 +73,9 @@
     <div class="flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:ml-auto">
       <nav aria-label="Primary" class="flex basis-full justify-center gap-1 sm:basis-auto sm:gap-2">
         <HeaderLink href="/" current={page.url.pathname === '/'}>Home</HeaderLink>
+        {#if hasNow}
+          <HeaderLink href="/now" current={page.url.pathname === '/now'}>Now</HeaderLink>
+        {/if}
         <HeaderLink href="/contact" current={page.url.pathname === '/contact'}>Contact</HeaderLink>
       </nav>
       <nav
