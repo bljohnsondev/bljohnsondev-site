@@ -4,45 +4,47 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Current 'now' status for bljohnson.dev - home sensor readings, office state, and what I'm watching. Ingested periodically from Home Assistant and a self-hosted TV tracker via the site's status ingest endpoint.",
+      "description": "Current 'now' status for bljohnson.dev - home sensor readings, toggles (lights, etc.), and what I'm watching. Ingested periodically from Home Assistant and Mishos (self-hosted tv tracking) via the site's status ingest endpoint.",
       "key": "literal:self",
       "record": {
         "type": "object",
         "required": ["updatedAt"],
         "properties": {
           "updatedAt": { "type": "string", "format": "datetime" },
-          "sensors": {
+          "entities": {
             "type": "unknown",
-            "description": "Map of sensor id -> #sensorReading. Lexicon has no map primitive; the shape is enforced in-app with Zod (src/lib/schemas/status-ingest.ts)."
+            "description": "Map of entity id -> #tempEntity or #toggleEntity, discriminated by `type`. Lexicon has no map primitive; the shape is enforced in-app with Zod (src/lib/schemas/status-ingest.ts)."
           },
-          "office": { "type": "ref", "ref": "#office" },
           "nowWatching": { "type": "ref", "ref": "#nowWatching" }
         }
       }
     },
-    "sensorReading": {
+    "tempEntity": {
       "type": "object",
-      "required": ["label", "tempF", "updatedAt"],
+      "required": ["type", "label", "tempF", "updatedAt"],
       "properties": {
+        "type": { "type": "string", "const": "temp" },
         "label": { "type": "string" },
         "tempF": {
           "type": "string",
-          "description": "Fahrenheit, one decimal place (e.g. \"84.6\"). Stored as a string because the atproto data model forbids floats."
+          "description": "Fahrenheit, one decimal place. Stored as a string because the atproto data model forbids floats."
         },
         "humidity": {
           "type": "integer",
           "minimum": 0,
           "maximum": 100,
-          "description": "Optional - omitted for sensors where only temperature matters (e.g. fridge/freezer)."
+          "description": "Optional - omitted for entities where only temperature matters."
         },
         "updatedAt": { "type": "string", "format": "datetime" }
       }
     },
-    "office": {
+    "toggleEntity": {
       "type": "object",
-      "required": ["lightsOn", "updatedAt"],
+      "required": ["type", "label", "on", "updatedAt"],
       "properties": {
-        "lightsOn": { "type": "boolean" },
+        "type": { "type": "string", "const": "toggle" },
+        "label": { "type": "string" },
+        "on": { "type": "boolean" },
         "updatedAt": { "type": "string", "format": "datetime" }
       }
     },

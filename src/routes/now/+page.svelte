@@ -2,7 +2,7 @@
   import dayjs from 'dayjs';
   import relativeTime from 'dayjs/plugin/relativeTime';
 
-  import { tempDotClass, type TempTone } from '$lib/now-sensors';
+  import { entityTempStatus, tempDotClass, type TempTone } from '$lib/now-sensors';
 
   import SensorBlock from './SensorBlock.svelte';
 
@@ -14,19 +14,18 @@
 
   let now = $derived(data.now);
   const lastUpdated = $derived(dayjs(now.updatedAt).fromNow());
-  const sensors = $derived(Object.entries(now.sensors ?? {}));
+  const entities = $derived(Object.entries(now.entities ?? {}));
 
   interface TempArgs {
     title: string;
     tempF: string;
-    humidity?: number;
+    footer?: string;
     tone?: TempTone;
   }
 
-  interface LightArgs {
+  interface ToggleArgs {
     title: string;
     on: boolean;
-    since?: string;
   }
 </script>
 
@@ -37,36 +36,35 @@
 
 <div class="my-4">A live look at my house and what I've been watching.</div>
 
-{#snippet sensorTemp({ title, tempF, humidity, tone = 'ok' }: TempArgs)}
-  <SensorBlock
-    dotClass={tempDotClass[tone]}
-    {title}
-    footer={humidity === undefined ? undefined : `${humidity}% humidity`}
-  >
+{#snippet sensorTemp({ title, tempF, footer, tone = 'ok' }: TempArgs)}
+  <SensorBlock dotClass={tempDotClass[tone]} {title} {footer}>
     {tempF}<span class="ml-1 text-xs">&deg;F</span>
   </SensorBlock>
 {/snippet}
 
-{#snippet sensorLight({ title, on, since }: LightArgs)}
-  <SensorBlock
-    dotClass={on ? 'bg-now-sensor-on' : 'bg-now-sensor-off'}
-    {title}
-    footer={since ? `Since ${since}` : undefined}
-  >
+{#snippet sensorToggle({ title, on }: ToggleArgs)}
+  <SensorBlock dotClass={on ? 'bg-now-sensor-on' : 'bg-now-sensor-off'} {title}>
     <span class="font-semibold {on ? 'text-now-sensor-on' : 'text-now-sensor-off'}">{on ? 'On' : 'Off'}</span>
   </SensorBlock>
 {/snippet}
 
-{#if sensors.length > 0 || now.office}
+{#if entities.length > 0}
   <h2 class="section">Environment</h2>
   <div class="divider mt-0"></div>
 
   <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-3">
-    {#each sensors as [sensorId, reading] (sensorId)}
-      {@render sensorTemp({ title: reading.label, tempF: reading.tempF, humidity: reading.humidity })}
+    {#each entities as [entityId, entity] (entityId)}
+      {#if entity.type === 'temp'}
+        {@const status = entityTempStatus(entityId, parseFloat(entity.tempF))}
+        {@render sensorTemp({
+          title: entity.label,
+          tempF: entity.tempF,
+          tone: status?.tone,
+          footer: entity.humidity !== undefined ? `${entity.humidity}% humidity` : status?.label,
+        })}
+      {:else}
+        {@render sensorToggle({ title: entity.label, on: entity.on })}
+      {/if}
     {/each}
-    {#if now.office}
-      {@render sensorLight({ title: 'Office', on: now.office.lightsOn })}
-    {/if}
   </div>
 {/if}
