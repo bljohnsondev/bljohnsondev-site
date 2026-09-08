@@ -2,9 +2,10 @@
   import dayjs from 'dayjs';
   import relativeTime from 'dayjs/plugin/relativeTime';
 
-  import { entityTempStatus, tempDotClass, type TempTone } from '$lib/now-sensors';
+  import { compareEntityOrder, entityTempStatus, tempDotClass, type TempTone } from '$lib/now-sensors';
 
   import SensorBlock from './SensorBlock.svelte';
+  import TvBlock from './TvBlock.svelte';
 
   import type { PageProps } from './$types';
 
@@ -14,7 +15,10 @@
 
   let now = $derived(data.now);
   const lastUpdated = $derived(dayjs(now.updatedAt).fromNow());
-  const entities = $derived(Object.entries(now.entities ?? {}));
+  const entities = $derived(
+    Object.entries(now.entities ?? {}).sort(([entityIdA], [entityIdB]) => compareEntityOrder(entityIdA, entityIdB))
+  );
+  const nowWatching = $derived(now.nowWatching);
 
   interface TempArgs {
     title: string;
@@ -66,5 +70,19 @@
         {@render sensorToggle({ title: entity.label, on: entity.on })}
       {/if}
     {/each}
+  </div>
+{/if}
+
+{#if nowWatching}
+  <div class="pt-5">
+    <h2 class="section">Watching</h2>
+    <div class="divider mt-0"></div>
+
+    <TvBlock
+      show={nowWatching.show}
+      season={nowWatching.season}
+      episode={nowWatching.episode}
+      episodeTitle={nowWatching.episodeTitle}
+    />
   </div>
 {/if}

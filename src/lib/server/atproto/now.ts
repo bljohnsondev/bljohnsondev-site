@@ -24,7 +24,12 @@ export interface SavedRecord {
 }
 
 export const saveNowRecord = async (data: StatusIngest): Promise<SavedRecord> => {
+  const existing = await fetchNowRecord();
   const record = { $type: NOW_COLLECTION, ...toNowRecord(data) };
+
+  if (data.nowWatching === undefined && existing?.nowWatching) {
+    record.nowWatching = existing.nowWatching;
+  }
 
   try {
     try {

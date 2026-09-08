@@ -34,12 +34,14 @@
   --color-skill-border: var(--color-slate-300);
 
   --color-now-sensor-border: var(--color-neutral-200);
-  --color-now-sensor-bg: color-mix(in oklch, var(--color-content-bg) 94%, black 6%);
+  --color-now-sensor-bg: color-mix(in oklch, var(--color-content-bg) 94%, black 2%);
   --color-now-sensor-on: var(--color-amber-500);
   --color-now-sensor-off: var(--color-neutral-400);
   --color-now-temp-cold: var(--color-sky-500);
   --color-now-temp-ok: var(--color-emerald-500);
   --color-now-temp-hot: var(--color-red-500);
+  --color-now-tv-show: var(--color-neutral-700);
+  --color-now-tv-seasonep: var(--color-neutral-600);
 
   --color-form-label-fg: var(--color-neutral-400);
   --color-form-label-required: var(--color-red-500);
@@ -100,6 +102,8 @@
   --color-now-temp-cold: var(--color-sky-400);
   --color-now-temp-ok: var(--color-emerald-400);
   --color-now-temp-hot: var(--color-red-400);
+  --color-now-tv-show: var(--color-neutral-200);
+  --color-now-tv-seasonep: var(--color-neutral-400);
 
   --color-form-label-fg: var(--color-neutral-400);
   --color-form-label-required: var(--color-red-500);
