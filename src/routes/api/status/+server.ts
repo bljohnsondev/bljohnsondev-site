@@ -39,11 +39,11 @@ export const POST: RequestHandler = async ({ request }) => {
     return json({ error: 'Validation failed', issues: parsed.error.issues }, { status: 422 });
   }
 
-  console.log('[status-ingest] received payload:', JSON.stringify(parsed.data, null, 2));
+  //console.log('[status-ingest] received payload:', JSON.stringify(parsed.data, null, 2));
 
   try {
     const saved = await saveNowRecord(parsed.data);
-    console.log(`[status-ingest] wrote ${saved.uri} (${saved.cid})`);
+    //console.log(`[status-ingest] wrote ${saved.uri} (${saved.cid})`);
     return json({ ok: true, uri: saved.uri, cid: saved.cid });
   } catch (error) {
     console.error('[status-ingest] failed to write dev.bljohnson.site.now record', error);

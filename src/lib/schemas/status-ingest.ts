@@ -26,6 +26,7 @@ const nowWatchingSchema = z.object({
   season: z.number().int().positive(),
   episode: z.number().int().positive(),
   episodeTitle: z.string().optional(),
+  imageUrl: z.url().optional(),
   watchedAt: z.iso.datetime(),
 });
 

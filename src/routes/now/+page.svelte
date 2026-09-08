@@ -83,6 +83,7 @@
       season={nowWatching.season}
       episode={nowWatching.episode}
       episodeTitle={nowWatching.episodeTitle}
+      imageUrl={nowWatching.imageUrl}
     />
   </div>
 {/if}

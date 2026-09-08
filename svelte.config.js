@@ -19,7 +19,7 @@ const config = {
         'default-src': ['self'],
         'script-src': ['self', 'unsafe-inline', 'https://challenges.cloudflare.com'],
         'style-src': ['self', 'unsafe-inline'],
-        'img-src': ['self', 'data:'],
+        'img-src': ['self', 'data:', 'https://static.tvmaze.com'],
         'font-src': ['self'],
         'connect-src': ['self', 'https://challenges.cloudflare.com'],
         'frame-src': ['https://challenges.cloudflare.com'],
