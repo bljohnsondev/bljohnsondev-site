@@ -2,7 +2,7 @@ import { AtpAgent } from '@atproto/api';
 
 import { env } from '$env/dynamic/private';
 
-import { getAgent } from './client';
+import { getRepoContext } from './repo';
 
 export interface AuthedRepo {
   agent: AtpAgent;
@@ -19,7 +19,8 @@ const createAuthedRepo = async (): Promise<AuthedRepo> => {
     throw new Error('ATPROTO_HANDLE and ATPROTO_APP_PASSWORD must both be set to write atproto records');
   }
 
-  const { pdsUrl } = await getAgent(handle);
+  const { pdsUrl } = await getRepoContext();
+
   const agent = new AtpAgent({ service: pdsUrl });
   const { data } = await agent.login({ identifier: handle, password: appPassword });
 

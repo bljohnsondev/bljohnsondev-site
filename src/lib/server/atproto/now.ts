@@ -1,3 +1,5 @@
+import { XRPCError } from '@atproto/api';
+
 import { env } from '$env/dynamic/private';
 
 import { nowRecordSchema, toNowRecord, type NowRecord, type StatusIngest } from '$lib/schemas/status-ingest';
@@ -25,15 +27,26 @@ export const saveNowRecord = async (data: StatusIngest): Promise<SavedRecord> =>
   const record = { $type: NOW_COLLECTION, ...toNowRecord(data) };
 
   try {
-    return await putNowRecord(record);
-  } catch (error) {
-    console.warn('putRecord for dev.bljohnson.site.now failed; re-authenticating and retrying', error);
-    resetAuthedRepo();
-    return await putNowRecord(record);
+    try {
+      return await putNowRecord(record);
+    } catch (error) {
+      if (!isAuthError(error)) throw error;
+      console.warn(
+        'putRecord for dev.bljohnson.site.now failed with an auth error; re-authenticating and retrying',
+        error
+      );
+      resetAuthedRepo();
+      return await putNowRecord(record);
+    }
   } finally {
     // A fresh write just landed — don't keep serving the stale read.
     clearNowRecordCache();
   }
+};
+
+const isAuthError = (error: unknown): boolean => {
+  if (!(error instanceof XRPCError)) return false;
+  return error.status === 401 || error.error === 'ExpiredToken' || error.error === 'InvalidToken';
 };
 
 const putNowRecord = async (record: Record<string, unknown>): Promise<SavedRecord> => {
