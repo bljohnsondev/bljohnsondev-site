@@ -56,6 +56,11 @@
         "season": { "type": "integer", "minimum": 1 },
         "episode": { "type": "integer", "minimum": 1 },
         "episodeTitle": { "type": "string" },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional box art / poster image URL for the show."
+        },
         "watchedAt": { "type": "string", "format": "datetime" }
       }
     }
