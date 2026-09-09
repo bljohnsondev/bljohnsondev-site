@@ -10,8 +10,11 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+ARG STATUS_FILE_PATH
+
 RUN --mount=type=secret,id=ATPROTO_HANDLE \
     ATPROTO_HANDLE=$(cat /run/secrets/ATPROTO_HANDLE) \
+    STATUS_FILE_PATH="${STATUS_FILE_PATH}" \
     pnpm build
 
 

@@ -12,6 +12,8 @@ const DEFAULT_HOT_MIN_F = 80;
 const FREEZER_SAFE_MAX_F = 5;
 const FRIDGE_SAFE_MAX_F = 40;
 
+export const formatTempF = (tempF: number): string => Math.round(tempF).toString();
+
 export const tempDotClass: Record<TempTone, string> = {
   cold: 'bg-now-temp-cold',
   ok: 'bg-now-temp-ok',

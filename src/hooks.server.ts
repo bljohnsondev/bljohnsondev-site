@@ -1,9 +1,16 @@
 import type { Handle, ServerInit } from '@sveltejs/kit';
 
 import { initAtproto } from '$lib/server/atproto';
+import { loadStatus } from '$lib/server/status-store';
 
 export const init: ServerInit = async () => {
   await initAtproto();
+
+  try {
+    loadStatus();
+  } catch (error) {
+    console.error('[status-store] failed to load status.json at boot', error);
+  }
 };
 
 export const handle: Handle = async ({ event, resolve }) => {

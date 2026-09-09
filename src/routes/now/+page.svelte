@@ -2,7 +2,7 @@
   import dayjs from 'dayjs';
   import relativeTime from 'dayjs/plugin/relativeTime';
 
-  import { compareEntityOrder, entityTempStatus, tempDotClass, type TempTone } from '$lib/now-sensors';
+  import { compareEntityOrder, entityTempStatus, formatTempF, tempDotClass, type TempTone } from '$lib/now-sensors';
 
   import SensorBlock from './SensorBlock.svelte';
   import TvBlock from './TvBlock.svelte';
@@ -14,11 +14,11 @@
   let { data }: PageProps = $props();
 
   let now = $derived(data.now);
-  const lastUpdated = $derived(dayjs(now.updatedAt).fromNow());
+  const lastUpdated = $derived(now ? dayjs(now.updatedAt).fromNow() : null);
   const entities = $derived(
-    Object.entries(now.entities ?? {}).sort(([entityIdA], [entityIdB]) => compareEntityOrder(entityIdA, entityIdB))
+    Object.entries(now?.entities ?? {}).sort(([entityIdA], [entityIdB]) => compareEntityOrder(entityIdA, entityIdB))
   );
-  const nowWatching = $derived(now.nowWatching);
+  const nowWatching = $derived(now?.nowWatching);
 
   interface TempArgs {
     title: string;
@@ -35,10 +35,16 @@
 
 <div class="flex flex-row items-center gap-1">
   <div class="font-welcome text-5xl font-extrabold text-greeting-fg">Right now</div>
-  <div class="ml-auto text-xs text-site-muted-fg">updated {lastUpdated}</div>
+  {#if lastUpdated}
+    <div class="ml-auto text-xs text-site-muted-fg">updated {lastUpdated}</div>
+  {/if}
 </div>
 
 <div class="my-4">A live look at my house and what I've been watching.</div>
+
+{#if !now}
+  <div class="py-8 text-center text-site-muted-fg">No live data is currently available. Check back soon.</div>
+{/if}
 
 {#snippet sensorTemp({ title, tempF, footer, tone = 'ok' }: TempArgs)}
   <SensorBlock dotClass={tempDotClass[tone]} {title} {footer}>
@@ -59,10 +65,11 @@
   <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-3">
     {#each entities as [entityId, entity] (entityId)}
       {#if entity.type === 'temp'}
-        {@const status = entityTempStatus(entityId, parseFloat(entity.tempF))}
+        {@const parsedTempF = parseFloat(entity.tempF)}
+        {@const status = entityTempStatus(entityId, parsedTempF)}
         {@render sensorTemp({
           title: entity.label,
-          tempF: entity.tempF,
+          tempF: formatTempF(parsedTempF),
           tone: status?.tone,
           footer: entity.humidity !== undefined ? `${entity.humidity}% humidity` : status?.label,
         })}

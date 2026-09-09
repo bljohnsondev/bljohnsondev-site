@@ -3,7 +3,7 @@ import { timingSafeEqual } from 'node:crypto';
 
 import { env } from '$env/dynamic/private';
 import { statusIngestSchema } from '$lib/schemas/status-ingest';
-import { saveNowRecord } from '$lib/server/atproto/now';
+import { ingestStatus } from '$lib/server/services/status-service';
 
 function isAuthorized(request: Request): boolean {
   const expectedToken = env.STATUS_INGEST_TOKEN;
@@ -42,11 +42,11 @@ export const POST: RequestHandler = async ({ request }) => {
   //console.log('[status-ingest] received payload:', JSON.stringify(parsed.data, null, 2));
 
   try {
-    const saved = await saveNowRecord(parsed.data);
-    //console.log(`[status-ingest] wrote ${saved.uri} (${saved.cid})`);
-    return json({ ok: true, uri: saved.uri, cid: saved.cid });
+    const saved = await ingestStatus(parsed.data);
+    //console.log('[status-ingest] wrote status.json:', saved.updatedAt);
+    return json({ ok: true, updatedAt: saved.updatedAt });
   } catch (error) {
-    console.error('[status-ingest] failed to write dev.bljohnson.site.now record', error);
+    console.error('[status-ingest] failed to persist status record', error);
     return json({ error: 'Failed to persist status record' }, { status: 502 });
   }
 };
