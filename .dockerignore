@@ -1,6 +1,35 @@
+# deps / build output
 node_modules/
 build/
-data/
 .svelte-kit/
+.pnpm-store/
+.output/
+
+# runtime data / local
+data/
+hurl/
+
+# env / secrets
 .env
 .env.*
+
+# vcs
+.git/
+.gitignore
+
+# editor / tooling / dev config
+.vscode/
+.devcontainer/
+.dockerignore
+.prettierrc
+.prettierignore
+.npmrc
+eslint.config.js
+.ignore
+
+# not needed at runtime
+drizzle/
+lexicons/
+build.sh
+deploy.sh
+README.md
