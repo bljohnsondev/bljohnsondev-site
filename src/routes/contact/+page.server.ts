@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod4 } from 'sveltekit-superforms/adapters';
 
-import { type ContactFormData, contactSchema } from '$lib/schemas/contact-schema';
+import { type ContactFormData, contactSchema } from '$lib/schemas/contact';
 import { saveAndNotify, validateToken } from '$lib/server/services/contact-service';
 
 import type { Actions, PageServerLoad } from './$types';
