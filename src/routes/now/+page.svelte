@@ -40,7 +40,7 @@
   {/if}
 </div>
 
-<div class="my-4">A live look at my house and what I've been watching.</div>
+<div class="my-4">What's going on around my house, and what I've been watching.</div>
 
 {#if !now}
   <div class="py-8 text-center text-site-muted-fg">No live data is currently available. Check back soon.</div>

@@ -6,14 +6,7 @@ import { env } from '$env/dynamic/private';
 
 import { nowRecordSchema, type NowRecord } from '$lib/schemas/status-ingest';
 
-const DEFAULT_NOW_CACHE_TTL_SECONDS = 60;
-
 let cachedStatus: NowRecord | null = null;
-
-export const getNowCacheTtlSeconds = (): number => {
-  const parsed = Number(env.NOW_CACHE_TTL_SECONDS);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_NOW_CACHE_TTL_SECONDS;
-};
 
 const getStatusFilePath = (): string => {
   const filePath = env.STATUS_FILE_PATH;

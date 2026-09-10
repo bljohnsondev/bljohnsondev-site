@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 
-import { getNowCacheTtlSeconds, getStatus, isStatusEnabled } from '$lib/server/status-store';
+import { getStatus, isStatusEnabled } from '$lib/server/status-store';
 
 import type { PageServerLoad } from './$types';
 
@@ -9,8 +9,8 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
     error(404, 'Not found');
   }
 
-  const maxAge = getNowCacheTtlSeconds();
-  setHeaders({ 'cache-control': `public, max-age=${maxAge}, stale-while-revalidate=${maxAge}` });
+  // no browser caching so the page shows the latest update
+  setHeaders({ 'cache-control': 'no-store' });
 
   return { now: getStatus() };
 };
