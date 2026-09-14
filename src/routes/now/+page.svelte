@@ -33,10 +33,10 @@
   }
 </script>
 
-<div class="flex flex-row items-center gap-1">
+<div class="flex flex-col items-center gap-1 sm:flex-row">
   <div class="font-welcome text-5xl font-extrabold text-greeting-fg">Right now</div>
   {#if lastUpdated}
-    <div class="ml-auto text-xs text-site-muted-fg">updated {lastUpdated}</div>
+    <div class="text-xs text-site-muted-fg sm:ml-auto">updated {lastUpdated}</div>
   {/if}
 </div>
 
