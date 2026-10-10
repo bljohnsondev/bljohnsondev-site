@@ -4,6 +4,7 @@
 
   import { compareEntityOrder, entityTempStatus, formatTempF, tempDotClass, type TempTone } from '$lib/now-sensors';
 
+  import MusicBlock from './MusicBlock.svelte';
   import SensorBlock from './SensorBlock.svelte';
   import TvBlock from './TvBlock.svelte';
 
@@ -19,6 +20,7 @@
     Object.entries(now?.entities ?? {}).sort(([entityIdA], [entityIdB]) => compareEntityOrder(entityIdA, entityIdB))
   );
   const nowWatching = $derived(now?.nowWatching);
+  const nowListening = $derived(now?.nowListening);
 
   interface TempArgs {
     title: string;
@@ -40,7 +42,7 @@
   {/if}
 </div>
 
-<div class="my-4">What's going on around my house, and what I've been watching.</div>
+<div class="my-4">What's happening around the house, and what I've been watching and listening to lately.</div>
 
 {#if !now}
   <div class="py-8 text-center text-site-muted-fg">No live data is currently available. Check back soon.</div>
@@ -91,6 +93,20 @@
       episode={nowWatching.episode}
       episodeTitle={nowWatching.episodeTitle}
       imageUrl={nowWatching.imageUrl}
+    />
+  </div>
+{/if}
+
+{#if nowListening}
+  <div class="pt-5">
+    <h2 class="section">Listening</h2>
+    <div class="divider mt-0"></div>
+
+    <MusicBlock
+      song={nowListening.song}
+      album={nowListening.album}
+      artist={nowListening.artist}
+      imageUrl={nowListening?.mbid ? `https://coverartarchive.org/release/${nowListening.mbid}/front-250` : undefined}
     />
   </div>
 {/if}

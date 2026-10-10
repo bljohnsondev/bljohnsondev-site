@@ -30,10 +30,18 @@ const nowWatchingSchema = z.object({
   watchedAt: z.iso.datetime(),
 });
 
+const nowListeningSchema = z.object({
+  song: z.string(),
+  album: z.string(),
+  artist: z.string(),
+  mbid: z.string().optional(),
+});
+
 export const statusIngestSchema = z.object({
   updatedAt: z.iso.datetime(),
   entities: z.record(z.string(), haEntity).optional(),
   nowWatching: nowWatchingSchema.optional(),
+  nowListening: nowListeningSchema.optional(),
 });
 
 export type StatusIngest = z.infer<typeof statusIngestSchema>;
@@ -66,6 +74,7 @@ export const nowRecordSchema = z.object({
   updatedAt: z.iso.datetime(),
   entities: z.record(z.string(), nowHaEntity).optional(),
   nowWatching: nowWatchingSchema.optional(),
+  nowListening: nowListeningSchema.optional(),
 });
 
 export type NowRecord = z.infer<typeof nowRecordSchema>;
@@ -75,6 +84,7 @@ export function toNowRecord(payload: StatusIngest): NowRecord {
   const record: NowRecord = { updatedAt: payload.updatedAt };
 
   if (payload.nowWatching) record.nowWatching = payload.nowWatching;
+  if (payload.nowListening) record.nowListening = payload.nowListening;
 
   if (payload.entities) {
     record.entities = Object.fromEntries(
