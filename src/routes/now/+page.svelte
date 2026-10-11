@@ -82,31 +82,33 @@
   </div>
 {/if}
 
-{#if nowWatching}
-  <div class="pt-5">
-    <h2 class="section">Watching</h2>
-    <div class="divider mt-0"></div>
+<div class="flex flex-col sm:flex-row sm:gap-4">
+  {#if nowWatching}
+    <div class="flex min-w-0 flex-1 flex-col pt-5">
+      <h2 class="section">Watching</h2>
+      <div class="divider mt-0"></div>
 
-    <TvBlock
-      show={nowWatching.show}
-      season={nowWatching.season}
-      episode={nowWatching.episode}
-      episodeTitle={nowWatching.episodeTitle}
-      imageUrl={nowWatching.imageUrl}
-    />
-  </div>
-{/if}
+      <TvBlock
+        show={nowWatching.show}
+        season={nowWatching.season}
+        episode={nowWatching.episode}
+        episodeTitle={nowWatching.episodeTitle}
+        imageUrl={nowWatching.imageUrl}
+      />
+    </div>
+  {/if}
 
-{#if nowListening}
-  <div class="pt-5">
-    <h2 class="section">Listening</h2>
-    <div class="divider mt-0"></div>
+  {#if nowListening}
+    <div class="flex min-w-0 flex-1 flex-col pt-5">
+      <h2 class="section">Listening</h2>
+      <div class="divider mt-0"></div>
 
-    <MusicBlock
-      song={nowListening.song}
-      album={nowListening.album}
-      artist={nowListening.artist}
-      imageUrl={nowListening?.mbid ? `https://coverartarchive.org/release/${nowListening.mbid}/front-250` : undefined}
-    />
-  </div>
-{/if}
+      <MusicBlock
+        song={nowListening.song}
+        album={nowListening.album}
+        artist={nowListening.artist}
+        imageUrl={nowListening?.mbid ? `https://coverartarchive.org/release/${nowListening.mbid}/front-250` : undefined}
+      />
+    </div>
+  {/if}
+</div>
