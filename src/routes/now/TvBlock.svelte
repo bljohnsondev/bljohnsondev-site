@@ -17,7 +17,7 @@
   <div class="flex flex-col gap-1">
     <div class="text-xs font-semibold tracking-wide text-site-muted-fg uppercase">Last Watched</div>
     <div class="text-lg font-bold text-now-tv-show">{show}</div>
-    <div class="text-sm text-now-tv-seasonep">Season {season} &middot; Episode: {episode}</div>
+    <div class="text-sm text-now-tv-seasonep">Season {season} &middot; Episode {episode}</div>
     <div class="text-sm">{episodeTitle}</div>
   </div>
 </section>
